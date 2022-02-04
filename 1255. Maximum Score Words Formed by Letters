@@ -1,0 +1,48 @@
+https://leetcode.com/problems/maximum-score-words-formed-by-letters/
+
+class Solution {
+    public int maxScoreWords(String[] words, char[] letters, int[] score) {
+        int[] farr= new int[26];
+        for(char ch:letters){
+            farr[ch-'a']++;
+        }
+        
+        return cal(words,farr, score,0 );
+    }
+    
+    public int cal(String[] words,int[] farr,int[] score,int idx ){
+        if(idx== words.length){
+            return 0;
+        }
+        
+        int sno=0+ cal(words,farr,score,idx+1 );
+        String word= words[idx];
+        int sword=0;
+        
+        boolean wconsider=true;
+        for(int i=0;i<word.length();i++){
+            char ch= word.charAt(i);
+            if(farr[ch-'a']<=0){
+                wconsider= false;
+            }
+            farr[ch-'a']--;
+            sword+=score[ch-'a'];
+        }
+        
+        int syes=0;
+        if(wconsider){
+            syes=sword+cal(words,farr,score,idx+1 );
+        }
+        
+        for(int i=0;i<word.length();i++){
+            char ch= word.charAt(i);
+            if(farr[ch-'a']<=0){
+                wconsider= false;
+            }
+            farr[ch-'a']++;
+            sword+=score[ch-'a'];
+        }
+        
+        return Math.max(sno,syes);
+    }
+}
