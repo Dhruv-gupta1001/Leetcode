@@ -1,0 +1,71 @@
+https://leetcode.com/problems/n-queens/
+
+
+class Solution {
+    public List<List<String>> solveNQueens(int n) {
+        List<List<String>> ans= new LinkedList<>();
+        int[][] chess= new int[n][n];
+        LinkedList<String> curr= new LinkedList<>();
+        String str="";
+        for(int i=0;i<n;i++){
+            str+=".";
+        }
+        print(ans,chess,curr,0,str);
+        
+        return ans;
+    }
+    
+    public void print(List<List<String>> ans,int[][] chess,LinkedList<String> curr,int r,String str){
+        if(r==chess.length){
+            ans.add(curr);
+            return;
+        }
+        for(int c=0;c<chess[0].length;c++){
+            if(isItSafeForQueen(chess,r,c)){
+                chess[r][c]=1;
+                String s=str.substring(0, c) + "Q"+ str.substring(c + 1);
+                curr.add(s);
+                print(ans,chess,new LinkedList(curr),r+1,str);
+                chess[r][c]=0;
+                curr.removeLast();
+            }
+        }
+    }
+    
+    public  boolean isItSafeForQueen(int[][] chess,int r,int c){
+        
+        //upar
+        int upr=r-1;
+        while(upr>=0){
+            if(chess[upr][c]==1){
+                return false;
+            }
+            upr--;
+        }
+        //diaonal left
+        int diglr=r-1;
+        int diglc=c-1;
+        
+        while(diglr>=0 && diglc>=0){
+            if(chess[diglr][diglc]==1){
+                return false;
+            }
+            diglr--;
+            diglc--;
+        }
+        
+        //diagonal right
+        
+        int digrr=r-1;
+        int digrc=c+1;
+        
+        while(digrr>=0 && digrc<chess.length){
+            if(chess[digrr][digrc]==1){
+                return false;
+            }
+            digrr--;
+            digrc++;
+        }
+        return true ;
+    }
+}
