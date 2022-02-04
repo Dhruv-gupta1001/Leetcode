@@ -1,0 +1,61 @@
+https://leetcode.com/problems/n-queens-ii/
+
+class Solution {
+    public int totalNQueens(int n) {
+        int[][] chess= new int[n][n];
+        return count(chess,0);
+    }
+    
+    public int count(int[][] chess,int r){
+        if(r==chess.length){
+            return 1;
+        }
+        
+        int ct=0;
+        for(int c=0;c<chess.length;c++){
+            if(fine(chess,r,c)){
+                chess[r][c]=1;
+                ct+=count(chess,r+1);
+                chess[r][c]=0;
+            }
+        }
+        return ct;
+    }
+    
+    public  boolean fine(int[][] chess,int r,int c){
+        
+        //upar
+        int upr=r-1;
+        while(upr>=0){
+            if(chess[upr][c]==1){
+                return false;
+            }
+            upr--;
+        }
+        //diaonal left
+        int diglr=r-1;
+        int diglc=c-1;
+        
+        while(diglr>=0 && diglc>=0){
+            if(chess[diglr][diglc]==1){
+                return false;
+            }
+            diglr--;
+            diglc--;
+        }
+        
+        //diagonal right
+        
+        int digrr=r-1;
+        int digrc=c+1;
+        
+        while(digrr>=0 && digrc<chess.length){
+            if(chess[digrr][digrc]==1){
+                return false;
+            }
+            digrr--;
+            digrc++;
+        }
+        return true ;
+    }
+}
