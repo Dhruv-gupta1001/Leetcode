@@ -1,0 +1,23 @@
+https://leetcode.com/problems/lexicographical-numbers/
+
+class Solution {
+    public List<Integer> lexicalOrder(int n) {
+        List<Integer> ans= new LinkedList<>();
+        for(int i=1;i<=9;i++){
+            dfs(ans,i,n);
+        }
+        
+        return ans;
+    }
+    
+    public void dfs(List<Integer> ans,int i,int n){
+        if(i>n){
+            return;
+        }
+        ans.add(i);
+        
+        for(int j=0;j<10;j++){
+            dfs(ans,i*10+j,n);
+        }
+    }
+}
