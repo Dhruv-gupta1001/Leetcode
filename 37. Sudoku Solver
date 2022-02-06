@@ -1,0 +1,76 @@
+https://leetcode.com/problems/sudoku-solver/
+
+class Solution {
+    public void solveSudoku(char[][] board) {
+        char[][] board2=new char[board.length][board[0].length];
+        result(board,board2,0,0);
+        for(int i=0;i<board.length;i++){
+            for(int j=0;j<board[0].length;j++){
+                board[i][j]=board2[i][j];
+            }
+        }
+    }
+    
+    public void result(char[][] board,char[][] board2,int r,int c){
+        if(r==board.length){
+            for(int i=0;i<board.length;i++){
+            for(int j=0;j<board[0].length;j++){
+                board2[i][j]=board[i][j];
+            }
+        }
+            return;
+        }
+        int nr=0;
+        int nc=0;
+        
+        if(c==board[0].length-1){
+            nc=0;
+            nr=r+1;
+        }else{
+            nc=c+1;
+            nr=r;
+        }
+        
+        if(board[r][c]!='.'){
+            result(board,board2,nr,nc);
+        }else{
+            for(int po=1;po<=9;po++){
+                char p=(char)(po+'0');
+                if(possible(board,r,c,p)){
+                    board[r][c]=p;
+                    result(board,board2,nr,nc);
+                    board[r][c]='.';
+                }
+            }
+        }
+    }
+    
+    
+    public boolean possible(char[][] board,int x,int y,char p){
+        for(int j=0;j<board[0].length;j++){
+            if(board[x][j]==p){
+                return false;
+            }
+        }
+        
+        for(int i=0;i<board.length;i++){
+            if(board[i][y]==p){
+                return false;
+            }
+        }
+        
+        int lsmr=3*(x/3);
+        int lsmc=3*(y/3);
+        
+        for(int i=0;i<3;i++){
+            for(int j=0;j<3;j++){
+                if(board[lsmr+i][lsmc+j]==p){
+                    return false;
+                }
+            }
+        }
+        
+        return true;
+    }
+}
+
