@@ -1,0 +1,44 @@
+https://leetcode.com/problems/palindrome-partitioning/
+
+class Solution {
+    public List<List<String>> partition(String s) {
+        List<List<String>>ans= new ArrayList<>();
+        ArrayList<String> curr=new ArrayList<>();
+        
+        find(ans,s,curr);
+        return ans;
+    }
+    
+     public void find(List<List<String>>ans, String str,ArrayList<String> curr ) {
+		//write you code here
+
+		if(str.length()==0){
+			ans.add(curr);
+			return ;
+		}
+
+		for(int i=1;i<=str.length();i++){
+			String word=str.substring(0,i);
+// 			System.out.println(word);
+			if(palindrome(word)){
+                curr.add(word);
+			    find(ans,str.substring(i),new ArrayList(curr));
+                curr.remove(curr.size()-1);
+			}
+		}
+		
+	}
+
+	public  boolean palindrome(String word){
+		int f=0;
+		int l=word.length()-1;
+		while(f<l){
+			if(word.charAt(f)!=word.charAt(l)){
+				return false;
+			}
+			f++;
+			l--;
+		}
+		return true;
+	}
+}
