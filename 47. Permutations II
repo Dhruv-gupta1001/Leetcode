@@ -1,0 +1,41 @@
+
+class Solution {
+    public List<List<Integer>> permuteUnique(int[] nums) {
+        List<List<Integer>> ans= new ArrayList<>();
+        
+        ArrayList<Integer> curr= new ArrayList<>();
+        HashMap<Integer,Integer> hm= new HashMap<>();
+        
+        for(int x:nums){
+            if(hm.containsKey(x)){
+                int fre=hm.get(x);
+                hm.put(x,fre+1);
+            }else{
+                hm.put(x,1);
+            }
+        }
+        
+        result(1,nums.length,hm,ans,curr);
+        return ans;
+        
+    }
+    
+    public void result(int cs,int ts,HashMap<Integer,Integer> hm,List<List<Integer>> ans,ArrayList<Integer> curr){
+        if(cs>ts){
+            ans.add(curr);
+            return;
+        }
+        
+        
+        for(int x:hm.keySet()){
+            int freq=hm.get(x);
+            if(freq>0){
+                curr.add(x);
+                hm.put(x,freq-1);
+                result(cs+1,ts,hm,ans,new ArrayList(curr));
+                hm.put(x,freq);
+                curr.remove(curr.size()-1);
+            }
+        }
+    }
+}
