@@ -1,0 +1,48 @@
+https://leetcode.com/problems/remove-invalid-parentheses/submissions/
+
+class Solution {
+    public List<String> removeInvalidParentheses(String s) {
+         int min=getMin(s);
+        List<String> ans = new ArrayList<>();
+        find(s,min,ans);
+        return ans;
+    }
+    
+    public static void find(String s,int min,List<String> ans){
+        if(min==0){
+            if(getMin(s)==0){
+                if(!ans.contains(s)){
+                    ans.add(s);
+                }
+            }
+            return;
+        }
+        
+        for(int i=0;i<s.length();i++){
+            if(s.charAt(i)=='(' || s.charAt(i)==')'){
+                String l= s.substring(0,i);
+                String r= s.substring(i+1);
+                find(l+r,min-1,ans);
+            }
+        }
+    }
+    
+    public static int getMin(String s){
+        Stack<Character> st= new Stack<>();
+        for(int i=0;i<s.length();i++){
+            char ch= s.charAt(i);
+            if(ch=='('){
+                st.push(ch);
+            }else if(ch==')'){
+                if(st.size()==0){
+                    st.push(ch);
+                }else if(st.peek()=='('){
+                    st.pop();
+                }else{
+                    st.push(ch);
+                }
+            }
+        }
+        return st.size();
+    }
+}
