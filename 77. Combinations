@@ -1,0 +1,28 @@
+https://leetcode.com/problems/combinations/
+
+class Solution {
+    public List<List<Integer>> combine(int n, int k) {
+        List<List<Integer>> ans= new LinkedList<>();
+        LinkedList<Integer> curr= new LinkedList<>();
+        boolean[] arr=new boolean[n];
+        find(ans,curr,n,k,1,arr,0);
+        return ans;
+    }
+    
+    public void find(List<List<Integer>> ans,LinkedList<Integer> curr,int n,int k,int cb,boolean[] arr,int l){
+        if(cb>k){
+            ans.add(new LinkedList(curr));
+            return;
+        }
+        
+        for(int i=l+1;i<=n;i++){
+            if(!arr[i-1]){
+                arr[i-1]=true;
+                curr.add(i);
+                find(ans,curr,n,k,cb+1,arr,i);
+                curr.remove(curr.size()-1);
+                arr[i-1]=false;
+            }
+        }
+    }
+}
