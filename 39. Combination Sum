@@ -1,0 +1,38 @@
+https://leetcode.com/problems/combination-sum/submissions/
+class Solution {
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>> ans= new LinkedList<>();
+        LinkedList<Integer> curr= new LinkedList<>();
+        find(ans,curr,0,candidates,target,0);
+        return ans;
+    }
+    
+    public void find(List<List<Integer>> ans,LinkedList<Integer> curr,int s,int[] candidates,int k,int ll){
+        
+        if(s>k){
+            return;
+        }
+        if(s==k){
+            ans.add(new LinkedList(curr));
+            return;
+        }
+        
+        
+//         if(idx<candidates.length){
+//             curr.add(candidates[idx]);
+//             find(ans,curr,idx+1,s+candidates[idx],candidates,k);
+//             curr.remove(curr.size()-1);
+        
+//             find(ans,curr,idx+1,s,candidates,k);
+//         }
+        for(int i=ll;i<candidates.length;i++){
+            // if(idx<candidates.length){}
+            curr.add(candidates[i]);
+            find(ans,curr,s+candidates[i],candidates,k,i);
+            curr.remove(curr.size()-1);
+        
+            // find(ans,curr,idx+1,s,candidates,k);
+        }
+        
+    }
+}
