@@ -1,0 +1,34 @@
+https://leetcode.com/problems/coin-change/submissions/
+
+class Solution {
+    public int coinChange(int[] coins, int amount) {
+        // List<List<Integer>> li= new LinkedList<>();
+        // LinkedList<Integer> curr= new LinkedList<>();
+        find(coins,amount,0,0,0);
+        
+        if(coin==0){
+            return -1;
+        }
+        return size;
+    }
+    
+    public int coin=0;
+    public int size=Integer.MAX_VALUE;
+    
+    public void find(int[] coins, int am,int sum,int ssf,int la){
+        if(sum>=am ){
+            if(sum==am){
+                coin++;
+                if(size>ssf){
+                    size=ssf;
+                }
+            }
+            return;
+        }
+        
+        for(int i=la;i<coins.length;i++){
+            int c=coins[i];
+            find(coins,am,sum+c,ssf+1,i);
+        }
+    }
+}
