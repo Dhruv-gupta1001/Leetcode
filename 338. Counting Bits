@@ -1,0 +1,19 @@
+class Solution {
+    public int[] countBits(int n) {
+        int[] arr=new int[n+1];
+        for(int i=0;i<=n;i++){
+            arr[i]=bits(i);
+        }
+        return arr;
+    }
+    
+    public int bits(int n){
+        int count=0;
+        while(n>0){
+            int rsb=n&-n;
+            count++;
+            n=n-rsb;
+        }
+        return count;
+    }
+}
