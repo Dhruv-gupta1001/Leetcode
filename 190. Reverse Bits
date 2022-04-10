@@ -1,0 +1,35 @@
+
+
+public class Solution {
+    // you need treat n as an unsigned value
+    public int reverseBits(int n) {
+        int j=0;
+        int rev=0;
+        int smask=0;
+        
+        boolean flag=false;
+        for(int i=31;i>=0;i--){
+            // if(flag){
+            //     if((n&(1<<i))!=0){
+            //         smask=(1<<j);
+            //         rev|=smask;
+            //     }
+            //     j++;
+            // }else{
+            //     if((n&(1<<i))!=0){
+            //         smask=(1<<j);
+            //         rev|=smask;
+            //         flag=true;
+            //     }
+            //     j++;
+            // }
+            if((n&(1<<i))!=0){
+                smask=(1<<j);
+                rev|=smask;
+            }
+            j++;
+        }
+        
+        return rev;
+    }
+}
