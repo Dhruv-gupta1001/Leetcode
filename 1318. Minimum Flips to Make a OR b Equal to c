@@ -1,0 +1,27 @@
+class Solution {
+    public int minFlips(int a, int b, int c) {
+        int count=0;
+        for(int i=0;i<32;i++){
+            int mask=(1<<i);
+            int clsb=(c&mask)>0 ? 1:0;
+            int alsb=(a&mask)>0 ? 1:0;
+            int blsb=(b&mask)>0 ? 1:0;
+            if(clsb==1){
+                if((alsb|blsb)==1){
+                    // continue;
+                }else{
+                    count+=1;
+                }
+            }else{
+                if((alsb|blsb)==1){
+                    if((alsb^blsb)==1){
+                        count+=1;
+                    }else{
+                        count+=2;
+                    }
+                }
+            }
+        }
+        return count;
+    }
+}
