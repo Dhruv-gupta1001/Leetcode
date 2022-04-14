@@ -1,0 +1,25 @@
+
+class Solution {
+    public int[] xorQueries(int[] arr, int[][] queries) {
+        int[] psa=new int[arr.length];
+        psa[0]=arr[0];
+        System.out.println(psa.length);
+        for(int i=1;i<psa.length;i++){
+          psa[i]=psa[i-1]^arr[i];
+        }
+
+        int[] ans=new int[queries.length];
+        for(int i=0;i<queries.length;i++){
+          int l=queries[i][0];
+          int r=queries[i][1];
+
+          if(l==0){
+            ans[i]=psa[r];
+          }else{
+            ans[i]=psa[r]^psa[l-1];
+          }
+        }
+
+        return ans;
+    }
+}
