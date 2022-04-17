@@ -1,0 +1,24 @@
+class Solution {
+    
+    public boolean Palindromehelper(ListNode n){
+      if(n==null){
+        return true;
+      }
+      boolean res=Palindromehelper(n.next);
+      if(res==false){
+        return false;
+      }else if(pleft.val!=n.val){
+        return false;
+      }else{
+        pleft=pleft.next;
+        return true;
+      }
+    }
+
+    public ListNode pleft=null;
+    
+    public boolean isPalindrome(ListNode head) {
+        pleft=head;
+        return Palindromehelper(head);
+    }
+}
