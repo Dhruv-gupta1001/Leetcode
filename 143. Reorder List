@@ -1,0 +1,30 @@
+class Solution {
+    
+    public  void foldHelper(ListNode n){
+        if(n==null){
+            return;
+        }
+        foldHelper(n.next);
+        if(flag==false){
+            return;
+        }
+        if(pleft!=n && pleft.next!=n){
+            ListNode temp=pleft.next;
+            pleft.next=n;
+            n.next=temp;
+            pleft=pleft.next.next;
+        }else{
+            n.next=null;
+            flag=false;
+        }
+    }
+
+    public  ListNode pleft=null;
+    public  boolean flag=true;
+    
+    
+    public void reorderList(ListNode head) {
+        pleft=head;
+        foldHelper(head);
+    }
+}
