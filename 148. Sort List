@@ -1,0 +1,63 @@
+class Solution {
+    
+    public ListNode midNode(ListNode head){
+        ListNode f=head;
+        ListNode s=head;
+
+        while(f.next!=null && f.next.next!=null){
+            f=f.next.next;
+            s=s.next;
+        }
+
+        return s;
+    }
+
+    public ListNode merge(ListNode fh,ListNode sh){
+        ListNode prev=new ListNode(-1);
+        ListNode s=prev;
+        
+        ListNode c1=fh;
+        ListNode c2=sh;
+
+        while(c1!=null && c2!=null){
+            if(c1.val>c2.val){
+                s.next=c2;
+                c2=c2.next;
+            }else if(c1.val<=c2.val){
+                s.next=c1;
+                c1=c1.next;
+            }
+            s=s.next;
+        }
+
+        if(c1!=null){
+            s.next=c1;
+        }
+        if(c2!=null){
+            s.next=c2;
+        }
+
+        return prev.next;
+    }
+    
+    public ListNode sortList(ListNode head) {
+        if(head==null || head.next==null){
+            return head;
+        }
+        ListNode c=head;
+
+        if(c.next==null){
+            return c;
+        }
+
+        ListNode mid=midNode(c);
+        ListNode midnxt=mid.next;
+        mid.next=null;
+        ListNode fh=sortList(c);
+        ListNode sh=sortList(midnxt);
+        ListNode merger=merge(fh,sh);
+
+        
+        return merger;
+    }
+}
