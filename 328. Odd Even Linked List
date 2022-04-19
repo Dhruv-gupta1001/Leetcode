@@ -1,0 +1,32 @@
+class Solution {
+    public ListNode oddEvenList(ListNode head) {
+        if(head==null || head.next==null){
+            return head;
+        }
+
+        ListNode even=new ListNode(-1);
+        ListNode odd=new ListNode(-1);
+
+        ListNode se=even;
+        ListNode so=odd;
+
+        ListNode sh=head;
+        int idx=1;
+
+        while(sh!=null){
+            if(idx%2==0){
+                se.next=sh;
+                se=se.next;
+            }else{
+                so.next=sh;
+                so=so.next;
+            }
+            idx++;
+            sh=sh.next;
+        }
+        so.next=even.next;
+        se.next=null;
+
+        return odd.next;
+    }
+}
