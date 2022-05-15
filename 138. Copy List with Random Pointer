@@ -1,0 +1,78 @@
+/*
+// Definition for a Node.
+class Node {
+    int val;
+    Node next;
+    Node random;
+
+    public Node(int val) {
+        this.val = val;
+        this.next = null;
+        this.random = null;
+    }
+}
+*/
+
+class Solution {
+    public Node copyRandomList(Node head) {
+        if(head ==null){
+            return head;
+        }
+        HashMap<Integer,Node> hmo= new HashMap<>();
+        Node co=head;
+        int idx=0;
+        while(co!=null){
+            hmo.put(idx++,co);
+            co=co.next;
+        }
+        
+        Node prev=new Node(-1);
+        
+        HashMap<Integer,Node> hmn=new HashMap<>();
+        Node nhead=new Node(-1);
+        for(int i=0;i<hmo.size();i++){
+            Node o=hmo.get(i);
+            Node n=new Node(o.val);
+            
+            if(hmn.containsKey(i)){ 
+                n=hmn.get(i);
+            }
+            hmn.put(i,n);
+            if(i==0){
+                nhead=n;
+            }
+            Node ro=o.random;
+            if(ro==null){
+                prev.next=n;
+                prev=n;
+                // System.out.println(n.val);
+                continue;
+            }
+            int y=checkidx(ro,hmo);
+            if(hmn.containsKey(y)){
+                n.random=hmn.get(y);
+            }else{
+                Node m=new Node(ro.val);
+                hmn.put(y,m);
+                n.random=m;
+                // System.out.println(n.val+" "+m.val);
+            }
+            
+            prev.next=n;
+            prev=n;
+        }
+        
+        prev.next=null;
+        return nhead;
+        
+    }
+    
+    public int checkidx(Node ro,HashMap<Integer,Node> hmo){
+        for(Integer x:hmo.keySet()){
+            if(hmo.get(x)==ro){
+                return x;
+            }
+        }
+        return -1;
+    }
+}
