@@ -1,0 +1,16 @@
+public int count=0;
+    public int findTargetSumWays(int[] nums, int target) {
+        counts(0,0,nums,target);
+        return count;
+    }
+    public void counts(int idx,int sos,int[] nums,int target){
+        if(idx==nums.length){
+            if(sos==target){
+                count++;
+            }
+            return;
+        }
+        counts(idx+1,sos-nums[idx],nums,target);
+        counts(idx+1,sos+nums[idx],nums,target);
+    }
+    
