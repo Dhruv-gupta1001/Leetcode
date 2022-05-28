@@ -1,0 +1,17 @@
+public int getXORSum(int[] arr1, int[] arr2) {
+        // (a1^a2) & (b1^b2) = (a1&b1) ^ (a1&b2) ^ (a2&b1) ^ (a2&b2)
+        int x1=0;
+        
+        for(int y:arr1){
+            x1=x1^y;
+        }
+        
+        int x2=0;
+        
+        for(int y:arr2){
+            x2=x2^y;
+        }
+        
+        return x1&x2;
+        
+    }
