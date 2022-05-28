@@ -1,0 +1,43 @@
+ public int numDecodings(String s) {
+        String str=s;
+        int[] dp= new int[str.length()];
+        for(int i=0;i<str.length();i++){
+            if(i==0){
+                if(str.charAt(i)!='0'){
+                    dp[i]=1;
+                }
+                else{
+                    // System.out.println(0);
+                    return 0;
+                }
+                continue;
+            }
+            if(str.charAt(i)!='0'){
+                dp[i]+=dp[i-1];
+                
+                if(str.charAt(i-1)!='0'){
+                    String sa=str.substring(i-1,i+1);
+                    if(Integer.parseInt(sa)<=26){
+                        if(i==1){
+                            dp[i]+=1;
+                        }else{
+                            dp[i]+=dp[i-2];
+                        }
+                    }
+                }
+            }else{
+                if(str.charAt(i-1)!='0'){
+                    String sa=str.substring(i-1,i+1);
+                    if(Integer.parseInt(sa)<=26){
+                        if(i==1){
+                            dp[i]+=1;
+                        }else{
+                            dp[i]+=dp[i-2];
+                        }
+                    }
+                }
+            }
+        }
+        return dp[str.length()-1];
+        // System.out.println(dp[str.length()-1]);
+    }
