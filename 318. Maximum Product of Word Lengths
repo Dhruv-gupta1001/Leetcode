@@ -1,0 +1,32 @@
+class Solution {
+    public int maxProduct(String[] words) {
+        int[] wmasks=new int[words.length];
+        for(int i=0;i<words.length;i++){
+            String word=words[i];
+            int wmask=0;
+            for(char ch:word.toCharArray()){
+                int bit=ch-'a';
+                int bitmask=(1<<bit);
+                wmask=wmask|bitmask;
+            }
+            wmasks[i]=wmask;
+        }
+        
+        int max=0;
+        
+        for(int i=0;i<words.length;i++){
+            for(int j=i+1;j<words.length;j++){
+                int wm1=wmasks[i];
+                int wm2=wmasks[j];
+                int wmf=wm1^wm2;
+                if(wmf==(wm1+wm2)){
+                    int lp=words[i].length()*words[j].length();
+                    if(lp>max){
+                        max=lp;
+                    }
+                }
+            }
+        }
+        return max;
+    }
+}
