@@ -1,0 +1,21 @@
+public int maxProfit(int[] prices) {
+        int sum=0;
+        int m=0;
+        int lsf=prices[0];
+
+        for(int i=1;i<prices.length;i++){
+            if(prices[i]<prices[i-1]){
+                lsf=prices[i];
+                sum+=m;
+                m=0;
+            }else{
+                int diff=prices[i]-lsf;
+                if(diff>m){
+                    m=diff;
+                }
+            }
+        }
+        sum+=m;
+
+        return sum;
+    }
