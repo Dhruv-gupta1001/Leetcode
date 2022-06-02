@@ -1,0 +1,18 @@
+public int maxProfit(int[] prices, int fee) {
+        int bsp=0;
+        int ssp=0;
+        for(int i=0;i<prices.length;i++){
+            
+            if(i==0){
+                bsp=prices[i]*(-1);
+            }
+            else{
+                int nbsp=ssp-prices[i];
+                int nssp=prices[i]+bsp-fee;
+                ssp=Math.max(ssp,nssp);
+                bsp=Math.max(bsp,nbsp);
+            }
+            // System.out.println(bsp+" "+ssp+" "+nbsp+" "+nssp);
+        }
+        return ssp;
+    }
