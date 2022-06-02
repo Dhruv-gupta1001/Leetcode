@@ -1,0 +1,19 @@
+public int maxProfit(int k, int[] prices) {
+        int n=prices.length;
+        if(n==0){
+            return 0;
+        }
+        int[][] dp= new int[k+1][n];
+        for(int i=1;i<=k;i++){
+            for(int j=1;j<n;j++){
+                int v=prices[j];
+                int m=dp[i][j-1];
+                for(int x=0;x<j;x++){
+                    int comp=v-prices[x]+dp[i-1][x];
+                    m=Math.max(m,comp);
+                }
+                dp[i][j]=m;
+            }
+        }
+        return dp[k][n-1];
+    }
