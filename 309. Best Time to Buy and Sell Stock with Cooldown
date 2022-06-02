@@ -1,0 +1,17 @@
+public int maxProfit(int[] prices) {
+        int bsp=0;
+        int ssp=0;
+        int csp=0;
+        for(int i=0;i<prices.length;i++){
+            if(i==0){
+                bsp=prices[i]*(-1);
+            }else{
+                int nbsp=csp-prices[i];
+                int nssp=bsp+prices[i];
+                csp=ssp;
+                bsp=Math.max(bsp,nbsp);
+                ssp=Math.max(ssp,nssp);
+            }
+        }
+        return ssp;
+    }
