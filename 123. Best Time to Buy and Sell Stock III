@@ -1,0 +1,55 @@
+class Solution {
+    public int maxProfit(int[] prices) {
+        int lsf=prices[0];
+        int ms=0;
+        int[]dpms=new int[prices.length];
+        dpms[0]=0;
+        for(int i=1;i<prices.length;i++){
+            if(prices[i]<lsf){
+                lsf=prices[i];
+                dpms[i]=dpms[i-1];
+                continue;
+            }
+            int diff=prices[i]-lsf;
+            if(diff>ms){
+                ms=diff;
+            }
+            dpms[i]=ms;
+        }
+        // for(int i=0;i<n;i++){
+        //    System.out.print(dpms[i]+" ");
+        // }
+        // System.out.println();
+
+        int msf=prices[prices.length-1];
+        int mb=0;
+        int[] dpmb=new int[prices.length];
+        dpmb[prices.length-1]=0;
+        for(int i=prices.length-2;i>=0;i--){
+            if(prices[i]>msf){
+                msf=prices[i];
+                dpmb[i]=dpmb[i+1];
+                continue;
+            }
+            int diff=msf-prices[i];
+            if(diff>mb){
+                mb=diff;
+            }
+            dpmb[i]=mb;
+        }
+
+        // for(int i=0;i<n;i++){
+        //     System.out.print(dpmb[i]+" ");
+        // }
+        // System.out.println();
+
+        int maxSum=Integer.MIN_VALUE;
+        for(int i=0;i<prices.length;i++){
+            int v=dpms[i]+dpmb[i];
+            if(v>maxSum){
+                maxSum=v;
+            }
+        }
+        return maxSum;
+    }
+}
